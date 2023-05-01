@@ -207,6 +207,7 @@ const Keyboard = {
             const container = document.getElementById('container');
             container.innerHTML = '';
             container.appendChild(this._createKeys());
+            this.elements.keys = container.querySelectorAll(".keyboard__key");
             this.close();
             this._triggerEvent("onclose");
           });
