@@ -6,7 +6,7 @@ const forCheck = {
   init() {
     this.elements.main = document.createElement("p");
     this.elements.main.classList.add("description");
-    this.elements.main.innerHTML = "Работа выполнена в операционной системе iOS. Для переключения языка используется клавиша Shift.";
+    this.elements.main.innerHTML = "Работа выполнена в операционной системе iOS. Для переключения языка используется клавиша Shift";
     document.body.appendChild(this.elements.main);
   }
 }
@@ -49,6 +49,7 @@ const Keyboard = {
     // // Create main elements
     this.elements.main = document.createElement("div");
     this.elements.keysContainer = document.createElement("div");
+    this.elements.keysContainer.setAttribute('id', 'container');
 
     // Setup main elements
     this.elements.main.classList.add("keyboard");
@@ -85,8 +86,8 @@ const Keyboard = {
       "~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "_", "+", "backspace",
       "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "/", "del",
       "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "ё", "enter",
-      "done", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?",
-      "ctrl", "space"
+      "done", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?", "pageup", "doneRight",
+      "fn", "control", "option", "command", "space", "command", "option", "pageLeft", "pageDn", "pageRight"
     ];
 
 
@@ -94,11 +95,19 @@ const Keyboard = {
       return `<class="material-icons">${icon_name}`;
     };
 
-    keyLayout.forEach(key => {
+    let buttons = [];
+    if (e === "en") {
+      buttons = keyLayout;
+    }
+    else if (e === "ru") {
+      buttons = keyLayoutRu;
+    }
+
+    console.log('create keys', buttons)
+    buttons.forEach(key => {
       const keyElement = document.createElement("button");
       const insertLineBreak = ["backspace", "del", "enter", "doneRight"].indexOf(key) !== -1;
 
-      // Add attributes/classes
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("keyboard__key");
 
@@ -186,6 +195,18 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("Shift");
 
           keyElement.addEventListener("click", () => {
+
+            console.log('shift', e)
+            if (e === "en") {
+              e = "ru";
+            }
+            else if (e === "ru") {
+              e = "en";
+            }
+
+            const container = document.getElementById('container');
+            container.innerHTML = '';
+            container.appendChild(this._createKeys());
             this.close();
             this._triggerEvent("onclose");
           });
@@ -197,6 +218,18 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("Shift");
 
           keyElement.addEventListener("click", () => {
+
+            console.log('shift', e)
+            if (e === "en") {
+              e = "ru";
+            }
+            else if (e === "ru") {
+              e = "en";
+            }
+
+            const container = document.getElementById('container');
+            container.innerHTML = '';
+            container.appendChild(this._createKeys());
             this.close();
             this._triggerEvent("onclose");
           });
@@ -298,6 +331,7 @@ const Keyboard = {
   }
 };
 
+
 window.addEventListener("DOMContentLoaded", function () {
   textArea.init();
 })
@@ -307,6 +341,19 @@ window.addEventListener("DOMContentLoaded", function () {
   Keyboard.init();
 });
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
   forCheck.init();
 });
+
+window.addEventListener("DOMContentLoaded", function () {
+  inputVal.init();
+});
+
+// var input = document.querySelector('#input')
+
+// document.querySelectorAll('#qwerty button').forEach(el => {
+//   el.addEventListener('click', () => {
+//     input.value = input.value + el.innerText;
+//   })
+// })
+let e = "en";
