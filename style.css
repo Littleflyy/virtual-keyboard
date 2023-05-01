@@ -1,8 +1,35 @@
 .use-keyboard-input {
-  height: 150px;
+  height: 500px;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+  color: #61095e;
+  font-size: 20px;
+}
+
+::placeholder {
+  color: #6248618a;
+  font-size: 1.5em;
+}
+
+:focus::-webkit-input-placeholder {
+  color: transparent;
+  transition: 0.2s;
+}
+
+:focus::-moz-placeholder {
+  color: transparent;
+  transition: 0.2s;
+}
+
+:focus:-moz-placeholder {
+  color: transparent;
+  transition: 0.2s;
+}
+
+:focus:-ms-input-placeholder {
+  color: transparent;
+  transition: 0.2s;
 }
 
 .keyboard {
@@ -13,7 +40,7 @@
   margin-left: 10%;
   margin-right: 10%;
   padding: 10px 0;
-  background: #004134;
+  background: #360943;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   user-select: none;
   transition: bottom 0.4s;
@@ -47,6 +74,9 @@
 .keyboard__key:active {
   background: rgba(255, 255, 255, 0.12);
 }
+.keyboard__key:hover {
+  background: #61095e;
+}
 
 .keyboard__key--wide {
   width: 12%;
@@ -73,5 +103,5 @@
 }
 
 .keyboard__key--dark {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(94, 216, 153, 0.509);
 }

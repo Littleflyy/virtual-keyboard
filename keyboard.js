@@ -8,6 +8,7 @@ const textArea = {
     this.elements.main = document.createElement("textarea");
 
     this.elements.main.classList.add("use-keyboard-input");
+    this.elements.main.placeholder = "Enter text...";
 
     document.body.appendChild(this.elements.main);
   },
@@ -63,7 +64,7 @@ const Keyboard = {
       "~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
       "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "/", "del",
       "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter",
-      "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "pageUp", "doneRight",
+      "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "pageup", "doneRight",
       "fn", "control", "option", "command", "space", "command", "option", "pageLeft", "pageDn", "pageRight"
     ];
 
@@ -75,9 +76,9 @@ const Keyboard = {
       "ctrl", "space"
     ];
 
-    // Creates HTML for an icon
+
     const createIconHTML = (icon_name) => {
-      return `<i class="material-icons">${icon_name}</i>`;
+      return `<class="material-icons">${icon_name}`;
     };
 
     keyLayout.forEach(key => {
@@ -100,7 +101,7 @@ const Keyboard = {
 
           break;
 
-          case "del":
+        case "del":
           keyElement.classList.add("keyboard__key--dark");
           keyElement.innerHTML = createIconHTML("del");
 
@@ -111,7 +112,7 @@ const Keyboard = {
 
           break;
 
-          
+
 
         case "tab":
           keyElement.classList.add("keyboard__key--dark");
@@ -125,7 +126,7 @@ const Keyboard = {
 
         case "caps":
           keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
-          keyElement.innerHTML = createIconHTML("caps");
+          keyElement.innerHTML = createIconHTML("⇑");
 
           keyElement.addEventListener("click", () => {
             this._toggleCapsLock();
@@ -178,6 +179,51 @@ const Keyboard = {
 
           break;
 
+        case "pageup":
+          keyElement.classList.add("keyboard__key--dark");
+          keyElement.innerHTML = createIconHTML("↑");
+
+          keyElement.addEventListener("click", () => {
+            this.close();
+            this._triggerEvent("onclose");
+          });
+
+          break;
+
+        case "pageRight":
+          keyElement.classList.add("keyboard__key--dark");
+          keyElement.innerHTML = createIconHTML("→");
+
+          keyElement.addEventListener("click", () => {
+            this.close();
+            this._triggerEvent("onclose");
+          });
+
+          break;
+
+        case "pageLeft":
+          keyElement.classList.add("keyboard__key--dark");
+          keyElement.innerHTML = createIconHTML("←");
+
+          keyElement.addEventListener("click", () => {
+            this.close();
+            this._triggerEvent("onclose");
+          });
+
+          break;
+
+
+        case "pageDn":
+          keyElement.classList.add("keyboard__key--dark");
+          keyElement.innerHTML = createIconHTML("↓");
+
+          keyElement.addEventListener("click", () => {
+            this.close();
+            this._triggerEvent("onclose");
+          });
+
+          break;
+
         default:
           keyElement.textContent = key.toLowerCase();
 
@@ -219,14 +265,12 @@ const Keyboard = {
     this.properties.value = initialValue || "";
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.remove("keyboard--hidden");
   },
 
   close() {
     this.properties.value = "";
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.add("keyboard--hidden");
   }
 };
 
