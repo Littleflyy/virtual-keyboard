@@ -1,3 +1,16 @@
+const forCheck = {
+  elements: {
+    main: null,
+  },
+
+  init() {
+    this.elements.main = document.createElement("p");
+    this.elements.main.classList.add("description");
+    this.elements.main.innerHTML = "Работа выполнена в операционной системе iOS. Для переключения языка используется клавиша Shift.";
+    document.body.appendChild(this.elements.main);
+  }
+}
+
 const textArea = {
   elements: {
     main: null,
@@ -91,8 +104,8 @@ const Keyboard = {
 
       switch (key) {
         case "backspace":
-          keyElement.classList.add("keyboard__key--wide");
-          keyElement.innerHTML = createIconHTML("backspace");
+          keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
+          keyElement.innerHTML = createIconHTML("Backspace");
 
           keyElement.addEventListener("click", () => {
             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -103,7 +116,7 @@ const Keyboard = {
 
         case "del":
           keyElement.classList.add("keyboard__key--dark");
-          keyElement.innerHTML = createIconHTML("del");
+          keyElement.innerHTML = createIconHTML("DEL");
 
           keyElement.addEventListener("click", () => {
             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -131,6 +144,17 @@ const Keyboard = {
           keyElement.addEventListener("click", () => {
             this._toggleCapsLock();
             keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+          });
+
+          break;
+
+        case "command":
+          keyElement.classList.add("keyboard__key");
+          keyElement.innerHTML = createIconHTML("⌘");
+
+          keyElement.addEventListener("click", () => {
+            this.properties.value = "";
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -184,8 +208,8 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("↑");
 
           keyElement.addEventListener("click", () => {
-            this.close();
-            this._triggerEvent("onclose");
+            this.properties.value += "↑";
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -195,8 +219,8 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("→");
 
           keyElement.addEventListener("click", () => {
-            this.close();
-            this._triggerEvent("onclose");
+            this.properties.value += "→";
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -206,8 +230,8 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("←");
 
           keyElement.addEventListener("click", () => {
-            this.close();
-            this._triggerEvent("onclose");
+            this.properties.value += "←";
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -218,8 +242,8 @@ const Keyboard = {
           keyElement.innerHTML = createIconHTML("↓");
 
           keyElement.addEventListener("click", () => {
-            this.close();
-            this._triggerEvent("onclose");
+            this.properties.value += "↓";
+            this._triggerEvent("oninput");
           });
 
           break;
@@ -281,4 +305,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
 window.addEventListener("DOMContentLoaded", function () {
   Keyboard.init();
+});
+
+window.addEventListener("DOMContentLoaded", function() {
+  forCheck.init();
 });
